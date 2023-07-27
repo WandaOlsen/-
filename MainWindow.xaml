@@ -1,0 +1,110 @@
+﻿<mah:MetroWindow  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="仓库管理系统.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:仓库管理系统" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                  mc:Ignorable="d"
+        WindowState="Maximized"
+        DataContext="{Binding Source={StaticResource Locator},Path=Main}"
+        Title="{Binding AppData.SystemName}" Height="450" Width="800">
+    <mah:MetroWindow.Resources>
+        <Storyboard x:Key="OnChecked1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="leftborder">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="40"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OnUnChecked1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="leftborder">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </mah:MetroWindow.Resources>
+    <mah:MetroWindow.Triggers>
+        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="togbtn1">
+            <BeginStoryboard Storyboard="{StaticResource OnChecked1}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="togbtn1">
+            <BeginStoryboard Storyboard="{StaticResource OnUnChecked1}"/>
+        </EventTrigger>
+    </mah:MetroWindow.Triggers>
+    <Grid ShowGridLines="False" Background="#2B2B2B">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup"/>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Width="200" x:Name="leftborder" BorderThickness="0,0,1,0" Background="#2B2B2B">
+            <Border.Effect>
+                <DropShadowEffect  BlurRadius="10" ShadowDepth="3" Color="Black" Opacity="0.5"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <Image Source="Resources/dothome.png" Height="40"/>
+                    <TextBlock Text="CargoSystem" FontSize="25" Margin="3,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <Label Height="20"/>
+                    <RadioButton Tag="Resources/windows.png" Height="60"  Style="{StaticResource RadioButtonStyle1}"
+                                 FontSize="20" Content="首页" Background="#2B2B2B" Foreground="White">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding SelectViewCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton Tag="Resources/depot.png" Height="60"  Style="{StaticResource RadioButtonStyle1}" 
+                                 FontSize="20" Content="出入库" Background="#2B2B2B" Foreground="White">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding SelectViewCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton Tag="Resources/set.png" Height="60" Style="{StaticResource RadioButtonStyle1}" 
+                                 FontSize="20" Content="类型设置" Background="#2B2B2B" Foreground="White">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding SelectViewCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton Tag="Resources/admin.png" Height="60" Style="{StaticResource RadioButtonStyle1}" 
+                                 FontSize="20" Content="用户管理" Background="#2B2B2B" Foreground="White">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding SelectViewCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton Tag="Resources/goods.png" Height="60" Style="{StaticResource RadioButtonStyle1}" 
+                                 FontSize="20" Content="物资管理" Background="#2B2B2B" Foreground="White">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding SelectViewCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=RadioButton}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                </StackPanel>
+            </Grid>
+            
+        </Border>
+        <Grid Grid.Column="1">
+            <ToggleButton Panel.ZIndex="99" Margin="0,13,0,0" x:Name="togbtn1" Height="50" Width="50" Style="{StaticResource ToggleButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ContentControl x:Name="container"/>
+        </Grid>
+        
+    </Grid>
+</mah:MetroWindow>
